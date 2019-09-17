@@ -1,0 +1,5 @@
+PersonalInfo:
+[# th:each="p : ${PersonalInfo}"]
+   First Name: [(${p.firstName})],
+Last Name : [(${p.lastName})]
+[/]

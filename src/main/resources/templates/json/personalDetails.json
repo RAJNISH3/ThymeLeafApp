@@ -1,0 +1,8 @@
+{
+  "PersonalInfo" : {
+        "FirstName" : "[(${first_name})]",
+        "LastName" : "[(${last_name})]",
+        "Tags" : "[(${tags})]",
+        "Info" : "[(${info})]"
+ }
+}

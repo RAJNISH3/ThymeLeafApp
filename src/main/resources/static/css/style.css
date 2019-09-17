@@ -1,0 +1,26 @@
+h1 {
+    font-size: 46px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 34px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table th, table td {
+	padding: 5px;
+}
+body {
+    background: #43cea2;
+    background: -webkit-linear-gradient(to right, #185a9d, #43cea2); 
+    background: linear-gradient(to right, #185a9d, #43cea2);
+    color: #fff;
+    text-align: center;
+}

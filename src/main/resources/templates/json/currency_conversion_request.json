@@ -1,0 +1,6 @@
+{
+  "conversion_rate" : {
+        "from_currency" : "[(${from_currency})]",
+        "to_currency" : "[(${to_currency})]"
+  }
+}
