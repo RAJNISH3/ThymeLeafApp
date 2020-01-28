@@ -15,6 +15,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import com.sample.thymeleaf.ThymeleafConfiguration;
+import com.sample.thymeleaf.ThymeleafRemoteResourceResolver;
 import com.sample.thymeleaf.model.Person;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,8 @@ public class JsonTxtController {
     public static final String CURRENCY_SEK = "USD";
     public static final String CURRENCY_NTD = "INR";
     
-    
+    @Autowired
+    ThymeleafRemoteResourceResolver thymeRemoteConfig;
    
     
     /* Instance variable(s): */
@@ -34,20 +36,21 @@ public class JsonTxtController {
     @Qualifier("messageTemplateEngine")
     protected SpringTemplateEngine mMessageTemplateEngine;
     
+    
+    
     @RequestMapping(value = "/text", method =RequestMethod.GET )
     public String  tempText( Model model) {
         /* Retrieve text message with inserted parameter values. */
         final Context theContext = new Context();
-//        theContext.setVariable(ThymeleafConfiguration.TEMPLATE_FROMCURRENCY_PARAM, CURRENCY_SEK);
-//        theContext.setVariable(ThymeleafConfiguration.TEMPLATE_TOCURRENCY_PARAM, CURRENCY_NTD);
         theContext.setVariable(ThymeleafConfiguration.TEMPLATE_FNAME_PARAM, "Tim");
         theContext.setVariable(ThymeleafConfiguration.TEMPLATE_LNAME_PARAM, "Zan");
         theContext.setVariable(ThymeleafConfiguration.TEMPLATE_TAG_PARAM, "#java #thyme #app");
         theContext.setVariable(ThymeleafConfiguration.TEMPLATE_PINFO_PARAM, "thymeleaf app with text template");
+        thymeRemoteConfig.setTemplateMode("txt");
         final String theTextMessage =
-//                mMessageTemplateEngine.process("text/currency_conversion_request", theContext);
-                mMessageTemplateEngine.process("text/personalDetails", theContext);
-       // model.addAttribute("text", theTextMessage);
+                mMessageTemplateEngine.process("", theContext);
+        
+        
         log.error("Hello 2nd Controller");
         return theTextMessage;
     }

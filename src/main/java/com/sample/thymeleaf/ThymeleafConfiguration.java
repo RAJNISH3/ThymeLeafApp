@@ -3,6 +3,7 @@ package com.sample.thymeleaf;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +38,11 @@ public class ThymeleafConfiguration {
      *
      * @return Template resolver.
      */
-    @Bean
+    @Autowired
+    ThymeleafRemoteResourceResolver thymeRemoteConfig;
+    
+    
+  /* @Bean
     public SpringResourceTemplateResolver textMessageTemplateResolver() {
         SpringResourceTemplateResolver theResourceTemplateResolver =
             new SpringResourceTemplateResolver();
@@ -51,6 +56,22 @@ public class ThymeleafConfiguration {
         theResourceTemplateResolver.setOrder(1);
         return theResourceTemplateResolver;
     }
+    
+    
+   /* @Bean
+    public ThymeleafRemoteResourceResolver textCustomResolver() {
+       // thymeRemoteConfig theResourceTemplateResolver =
+        //    new SpringResourceTemplateResolver();
+    //    thymeRemoteConfig.setPrefix(TEMPLATES_BASE);
+        thymeRemoteConfig.setResolvablePatterns(
+            Collections.singleton(TEXT_TEMPLATES_RESOLVE_PATTERN));
+    //    thymeRemoteConfig.setSuffix(".txt");
+        thymeRemoteConfig.setTemplateMode("text");
+    //    thymeRemoteConfig.setCharacterEncoding("UTF-8");
+        thymeRemoteConfig.setCacheable(false);
+        thymeRemoteConfig.setOrder(1);
+        return thymeRemoteConfig;
+    }*/
     
     /**
      * Creates the template resolver that retrieves JSON message payloads.
@@ -94,6 +115,7 @@ public class ThymeleafConfiguration {
         final SpringTemplateEngine theTemplateEngine = new SpringTemplateEngine();
         for (SpringResourceTemplateResolver theTemplateResolver : inTemplateResolvers) {
             theTemplateEngine.addTemplateResolver(theTemplateResolver);
+            theTemplateEngine.addTemplateResolver(thymeRemoteConfig);
         }
         return theTemplateEngine;
     }
