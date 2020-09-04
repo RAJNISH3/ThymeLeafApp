@@ -1,3 +1,0 @@
-ConversionRate:
-    FromCurrency: [(${from_currency})]
-    toCurrency: [(${to_currency})]

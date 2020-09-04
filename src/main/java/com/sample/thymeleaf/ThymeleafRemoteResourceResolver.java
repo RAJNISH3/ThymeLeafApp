@@ -30,7 +30,9 @@ public class ThymeleafRemoteResourceResolver extends StringTemplateResolver {
 
         // ThymeleafTemplate is our internal object that contains the content.
         // You should change this to match you're set up.
-        InputStream inp = Thread.currentThread().getContextClassLoader().getResourceAsStream("/templates/text/personalDetails.txt");
+        //InputStream inp = this.getClass().getResourceAsStream("/templates/text/personalDetails.txt");//text
+        InputStream inp = this.getClass().getResourceAsStream("/templates/text/personalDtlsLoop.txt");
+                //Thread.currentThread().getContextClassLoader().getResourceAsStream("/templates/text/personalDetails.txt");
         String s1 = null;
         try {
             s1 = convertInputStreamToString(inp);
