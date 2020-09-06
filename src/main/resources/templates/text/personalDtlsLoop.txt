@@ -1,5 +1,7 @@
 PersonalInfo:
 [# th:each="p : ${PersonalInfo}"]
-   First Name: [(${p.firstName})],
-   Last Name : [(${p.lastName})]
+   First Name: [(${p.firstName})]
+   Last Name : [(${p.lastName})][# th:if="${p.age > 1}"]
+   Age 		 : [(${p.age})]
+   [/]
 [/]

@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,12 +17,13 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import com.sample.thymeleaf.ThymeleafConfiguration;
 import com.sample.thymeleaf.ThymeleafRemoteResourceResolver;
 import com.sample.thymeleaf.model.Person;
+import com.sample.thymeleaf.model.PersonJson;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class JsonTxtController {
+public class JsonTextThymeleafController {
 
     @Autowired
     private ThymeleafRemoteResourceResolver thymeRemoteConfig;
@@ -55,11 +57,11 @@ public class JsonTxtController {
         /* Retrieve text message with inserted parameter values. */
         final Context theContext = new Context();
         List<Person> personList = new ArrayList<>();
-        personList.add(new Person("Tim1", "Zoltan1"));
-        personList.add(new Person("Tim2", "Zoltan2"));
-        personList.add(new Person("Tim3", "Zoltan3"));
-        personList.add(new Person("Tim4", "Zoltan4"));
-        personList.add(new Person("Tim5", "Zoltan5"));
+        personList.add(new Person("Tim1", "Zoltan1", 0));
+        personList.add(new Person("Tim2", "Zoltan2", 20));
+        personList.add(new Person("Tim3", "Zoltan3", 40));
+        personList.add(new Person("Tim4", "Zoltan4", 50));
+        personList.add(new Person("Tim5", "Zoltan5", 10));
         theContext.setVariable("PersonalInfo", personList);
         
         final String theTextMessage =
@@ -69,9 +71,21 @@ public class JsonTxtController {
     }
     
     
+    //TEXT file template generation api
+    @PostMapping(value = "persons")
+    public String  thymeleafTemplateTextProcessPost(@RequestBody List<Person> personList) {
+        final Context theContext = new Context();
+        theContext.setVariable("PersonalInfo", personList);
+        final String theTextMessage =
+                mMessageTemplateEngine.process("text/personalDtlsLoop", theContext);
+        log.error(theTextMessage);
+        return theTextMessage;
+    }
+    
+    
     @RequestMapping(value = "/json", method =RequestMethod.GET )
     public String  thymeleafTemplateJsonProcess( Model model) {
-        log.error("templateJson");
+        log.info("templateJson");
         final Context theContext = new Context();
         theContext.setVariable(ThymeleafConfiguration.TEMPLATE_FNAME_PARAM, "Tim");
         theContext.setVariable(ThymeleafConfiguration.TEMPLATE_LNAME_PARAM, "Zan");
@@ -82,6 +96,16 @@ public class JsonTxtController {
         return theJsonMessage;
     }
     
+    
+    @PostMapping(value = "personsjson")
+    public String  thymeleafTemplateJsonProcessPost( @RequestBody List<PersonJson> personList) {
+        log.info("templateJson Post call");
+        final Context theContext = new Context();
+        theContext.setVariable("PersonalInfo", personList);
+        final String theJsonMessage =
+                mMessageTemplateEngine.process("json/personalDetailsLoop", theContext);
+        return theJsonMessage;
+    }
     
     
 }

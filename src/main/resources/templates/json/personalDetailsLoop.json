@@ -1,0 +1,11 @@
+{
+  "PersonalInfo" : {
+[# th:each="p : ${PersonalInfo}"]
+        "FirstName" : "[(${p.first_name})]",
+        "LastName" : "[(${p.last_name})]",
+        "Tags" : "[(${p.tags})]",
+        "Info" : "[(${p.info})]"
+  "=============================================="
+  [/]      
+ }
+}

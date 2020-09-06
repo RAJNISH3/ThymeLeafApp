@@ -19,8 +19,8 @@ public class TemplateController {
     private static List<Person> persons = new ArrayList<Person>();
 
     static {
-        persons.add(new Person("Tom", "Dan"));
-        persons.add(new Person("Tim", "Cook"));
+        persons.add(new Person("Tom", "Dan", 10));
+        persons.add(new Person("Tim", "Cook", 100));
     }
     // inject via application.properties
     @Value("${welcome.message}")
@@ -57,11 +57,11 @@ public class TemplateController {
         String lastName = personForm.getLastName();
 
         if (firstName != null && firstName.length() > 0) {
-            Person newPerson = new Person(firstName, lastName);
+            Person newPerson = new Person(firstName, lastName, 0);
             persons.add(newPerson);
             return "redirect:/personList";
         } else if (lastName != null && lastName.length() > 0) {
-            Person newPerson = new Person(firstName, lastName);
+            Person newPerson = new Person(firstName, lastName, 0);
             persons.add(newPerson);
             return "redirect:/personList";
         }
